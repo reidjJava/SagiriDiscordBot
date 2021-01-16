@@ -42,7 +42,9 @@ public class Main {
                 new PatCommand(),
                 new SleepCommand(),
                 new SorryCommand(),
-                new WowCommand()
+                new WowCommand(),
+                new AvatarCommand(),
+                new PollCommand()
         ).forEach(jda::addEventListener);
     }
 }
