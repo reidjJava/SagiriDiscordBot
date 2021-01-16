@@ -1,22 +1,19 @@
-package ru.reidj.sagiridiscordbot.events;
+package ru.reidj.sagiridiscordbot.event;
 
 import lombok.val;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
-import java.util.List;
+import java.util.Objects;
 
 public class GuildMemberJoin extends ListenerAdapter {
 
     @Override
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        val guild = event.getGuild();
-        val user = event.getUser();
-
-        List<TextChannel> channels = guild.getTextChannelsByName("прибывшие", true);
+    public void onGuildMemberJoin(GuildMemberJoinEvent e) {
+        val guild = e.getGuild();
+        val user = e.getUser();
 
         val joinMessage = new EmbedBuilder();
 
@@ -27,6 +24,11 @@ public class GuildMemberJoin extends ListenerAdapter {
         joinMessage.setImage("https://i.gifer.com/7bkF.gif");
 
         if (!user.isBot())
-            channels.get(0).sendMessage(joinMessage.build()).queue();
+            guild.getCategories()
+                    .get(0)
+                    .getTextChannels()
+                    .get(0)
+                    .sendMessage(joinMessage.build()).queue();
+        guild.addRoleToMember(e.getMember(), Objects.requireNonNull(guild.getRoleById("799936896389742592"))).complete();
     }
 }

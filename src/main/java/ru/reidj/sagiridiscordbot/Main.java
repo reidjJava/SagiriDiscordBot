@@ -3,8 +3,8 @@ package ru.reidj.sagiridiscordbot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import ru.reidj.sagiridiscordbot.events.GuildMemberJoin;
-import ru.reidj.sagiridiscordbot.events.GuildMemberLeave;
+import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
+import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
 
 public class Main {
     public static void main(String[] args) throws Exception {

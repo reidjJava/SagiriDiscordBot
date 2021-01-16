@@ -1,4 +1,4 @@
-package ru.reidj.sagiridiscordbot.events;
+package ru.reidj.sagiridiscordbot.event;
 
 import lombok.val;
 import net.dv8tion.jda.api.EmbedBuilder;
