@@ -2,27 +2,30 @@ package ru.reidj.sagiridiscordbot.event;
 
 import lombok.val;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.util.List;
+import java.awt.*;
 
 public class GuildMemberLeave extends ListenerAdapter {
 
-    public void onGuildMemberLeave(GuildMemberLeaveEvent e) {
-        User user = e.getUser();
-        Guild guild = e.getGuild();
-
-        List<TextChannel> channels = guild.getTextChannelsByName("основной", true);
+    public void onGuildMemberRemove(GuildMemberRemoveEvent e) {
+        val guild = e.getGuild();
+        val user = e.getUser();
 
         val leaveMessage = new EmbedBuilder();
 
-        leaveMessage.setColor(0xf48342);
-        leaveMessage.setDescription(user.getName() + ", трахнул суку и бросил");
+        leaveMessage.setColor(Color.PINK);
+        leaveMessage.setTitle("Один из участников покинул сервер :(");
+        leaveMessage.setDescription(user.getAsMention() + ", надеемся тебе у нас понравилось");
+        leaveMessage.setImage("https://i.gifer.com/7bkF.gif");
 
-        channels.get(0).sendMessage(leaveMessage.build()).queue();
+        if (!user.isBot())
+            guild.getCategories()
+                    .get(0)
+                    .getTextChannels()
+                    .get(0)
+                    .sendMessage(leaveMessage.build()).queue();
+
     }
 }

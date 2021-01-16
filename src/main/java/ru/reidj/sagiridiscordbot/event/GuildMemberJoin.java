@@ -29,6 +29,7 @@ public class GuildMemberJoin extends ListenerAdapter {
                     .getTextChannels()
                     .get(0)
                     .sendMessage(joinMessage.build()).queue();
+
         guild.addRoleToMember(e.getMember(), Objects.requireNonNull(guild.getRoleById("799936896389742592"))).complete();
     }
 }
