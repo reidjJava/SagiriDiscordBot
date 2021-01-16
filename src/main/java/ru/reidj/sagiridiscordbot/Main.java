@@ -8,15 +8,19 @@ import ru.reidj.sagiridiscordbot.command.moderation.KickCommand;
 import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
 import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         JDA jda = JDABuilder.createDefault("Nzk5NzI5MjE2NTMwNjc3ODEx.YAHz3w.ZaES44Oy064nNdCS_DwZZMT3rpg")
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .build();
 
-        jda.addEventListener(new GuildMemberJoin());
-        jda.addEventListener(new GuildMemberLeave());
-        jda.addEventListener(new BanCommand());
-        jda.addEventListener(new KickCommand());
+        Arrays.asList(
+                new GuildMemberJoin(),
+                new GuildMemberLeave(),
+                new BanCommand(),
+                new KickCommand()
+        ).forEach(jda::addEventListener);
     }
 }
