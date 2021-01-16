@@ -17,7 +17,6 @@ public class MuteCommand extends ListenerAdapter {
         val guild = e.getGuild();
         String[] messages = message.getContentRaw().split(" ");
 
-        try {
             if (messages[0].equalsIgnoreCase("!mute")) {
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     val role = e.getGuild().getRoleById("800029682572984320");
@@ -37,8 +36,5 @@ public class MuteCommand extends ListenerAdapter {
                     );
                 }
             }
-        } catch (Exception exception) {
-            channel.sendMessage("Произошла ошибка, обратитесь к администратору").queue();
         }
-    }
 }
