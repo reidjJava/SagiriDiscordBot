@@ -19,17 +19,17 @@ public class WarnCommand extends ListenerAdapter {
         String[] messages = message.getContentRaw().split(" ");
 
         if (messages[0].equalsIgnoreCase("!warn")) {
-            if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_CHANNEL)) {
+            channel.deleteMessageById(message.getId()).queue();
+            if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_CHANNEL))
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     val warnMessage = new EmbedBuilder();
 
                     warnMessage.setColor(Color.red);
                     warnMessage.setTitle("Участник " + member.getAsMention().replace(member.getAsMention(), member.getEffectiveName()) + " получил предупреждение!");
-                    warnMessage.setDescription("Причина: " + messages[2]);
+                    warnMessage.setDescription("Причина: " + messages[2] + "\n");
 
                     channel.sendMessage(warnMessage.build()).queue();
                 }
-            }
         }
     }
 }

@@ -3,6 +3,7 @@ package ru.reidj.sagiridiscordbot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import ru.reidj.sagiridiscordbot.command.member.*;
 import ru.reidj.sagiridiscordbot.command.moderation.BanCommand;
 import ru.reidj.sagiridiscordbot.command.moderation.KickCommand;
 import ru.reidj.sagiridiscordbot.command.moderation.MuteCommand;
@@ -24,7 +25,24 @@ public class Main {
                 new BanCommand(),
                 new KickCommand(),
                 new MuteCommand(),
-                new WarnCommand()
+                new WarnCommand(),
+                new ThreatenCommand(),
+                new HighfiveCommand(),
+                new AngryCommand(),
+                new CryCommand(),
+                new DidderCommand(),
+                new FacePawnCommand(),
+                new GoodbyeCommand(),
+                new HelloCommand(),
+                new HighfiveCommand(),
+                new HelloCommand(),
+                new HugCommand(),
+                new KissCommand(),
+                new LaughCommand(),
+                new PatCommand(),
+                new SleepCommand(),
+                new SorryCommand(),
+                new WowCommand()
         ).forEach(jda::addEventListener);
     }
 }
