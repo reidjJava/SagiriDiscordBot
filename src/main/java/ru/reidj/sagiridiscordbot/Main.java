@@ -3,6 +3,8 @@ package ru.reidj.sagiridiscordbot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import ru.reidj.sagiridiscordbot.command.moderation.BanCommand;
+import ru.reidj.sagiridiscordbot.command.moderation.KickCommand;
 import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
 import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
 
@@ -14,5 +16,7 @@ public class Main {
 
         jda.addEventListener(new GuildMemberJoin());
         jda.addEventListener(new GuildMemberLeave());
+        jda.addEventListener(new BanCommand());
+        jda.addEventListener(new KickCommand());
     }
 }
