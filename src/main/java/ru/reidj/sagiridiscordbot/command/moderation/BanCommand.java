@@ -15,7 +15,7 @@ public class BanCommand extends ListenerAdapter {
         val message = e.getMessage();
 
         if (message.getContentRaw().startsWith("!ban")) {
-            if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.KICK_MEMBERS)) {
+            if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.BAN_MEMBERS)) {
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     e.getChannel().sendMessage("Вы успешно забанили " + member.getAsMention()).queue();
                     member.ban(1).queue();
