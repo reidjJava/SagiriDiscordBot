@@ -13,11 +13,13 @@ public class BanCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         val message = e.getMessage();
+        val channel = e.getChannel();
 
         if (message.getContentRaw().startsWith("!ban")) {
+            channel.deleteMessageById(message.getId()).queue();
             if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.BAN_MEMBERS)) {
                 for (Member member : e.getMessage().getMentionedMembers()) {
-                    e.getChannel().sendMessage("Вы успешно забанили " + member.getAsMention()).queue();
+                    channel.sendMessage(member.getAsMention() + " был(а) забанен(а) на сервере!").queue();
                     member.ban(1).queue();
                 }
             }

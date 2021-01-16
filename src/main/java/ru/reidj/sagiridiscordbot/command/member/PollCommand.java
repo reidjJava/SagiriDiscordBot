@@ -14,12 +14,12 @@ public class PollCommand extends ListenerAdapter {
         val channel = e.getChannel();
         val message = e.getMessage();
 
-        if (e.getMessage().getContentRaw().startsWith("!poll")) {
+        if (message.getContentRaw().startsWith("!poll")) {
             channel.deleteMessageById(message.getId()).queue();
 
             val pollMessage = new EmbedBuilder();
 
-            pollMessage.setColor(Color.PINK);
+            pollMessage.setColor(Color.YELLOW);
             pollMessage.setTitle("Опрос :pencil:");
             pollMessage.setDescription(message.getContentRaw().replace("!poll", ""));
             pollMessage.setFooter("\nОпрос провёл " + e.getAuthor().getName());

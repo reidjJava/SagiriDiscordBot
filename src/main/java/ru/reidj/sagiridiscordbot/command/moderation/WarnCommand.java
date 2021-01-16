@@ -18,18 +18,22 @@ public class WarnCommand extends ListenerAdapter {
         val channel = e.getChannel();
         String[] messages = message.getContentRaw().split(" ");
 
-        if (messages[0].equalsIgnoreCase("!warn")) {
-            channel.deleteMessageById(message.getId()).queue();
-            if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_CHANNEL))
-                for (Member member : e.getMessage().getMentionedMembers()) {
-                    val warnMessage = new EmbedBuilder();
+        try {
+            if (messages[0].equalsIgnoreCase("!warn")) {
+                channel.deleteMessageById(message.getId()).queue();
+                if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_CHANNEL))
+                    for (Member member : e.getMessage().getMentionedMembers()) {
+                        val warnMessage = new EmbedBuilder();
 
-                    warnMessage.setColor(Color.red);
-                    warnMessage.setTitle("Участник " + member.getAsMention().replace(member.getAsMention(), member.getEffectiveName()) + " получил предупреждение!");
-                    warnMessage.setDescription("Причина: " + messages[2] + "\n");
+                        warnMessage.setColor(Color.red);
+                        warnMessage.setTitle("Участник(ца) " + member.getAsMention().replace(member.getAsMention(), member.getEffectiveName()) + " получил(а) предупреждение!");
+                        warnMessage.setDescription("Причина: " + messages[2] + "\n");
 
-                    channel.sendMessage(warnMessage.build()).queue();
-                }
+                        channel.sendMessage(warnMessage.build()).queue();
+                    }
+            }
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            channel.sendMessage("Синтаксическая ошибка! Используйте !warn @имя причина").queue();
         }
     }
 }

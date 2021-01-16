@@ -17,11 +17,13 @@ public class MuteCommand extends ListenerAdapter {
         val guild = e.getGuild();
         String[] messages = message.getContentRaw().split(" ");
 
+        try {
             if (messages[0].equalsIgnoreCase("!mute")) {
+                channel.deleteMessageById(message.getId()).queue();
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     val role = e.getGuild().getRoleById("800029682572984320");
 
-                    channel.sendMessage("Участнику " + member.getAsMention() + " было запрещено писать в чат на " + messages[2] + " секунд").queue();
+                    channel.sendMessage("Участнику(це) " + member.getAsMention() + " было запрещено писать в чат на " + messages[2] + " секунд!").queue();
                     guild.addRoleToMember(member, Objects.requireNonNull(e.getGuild().getRoleById("800029682572984320"))).complete();
 
                     new Timer().schedule(
@@ -36,5 +38,8 @@ public class MuteCommand extends ListenerAdapter {
                     );
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            channel.sendMessage("Синтаксическая ошибка! Используйте !mute @имя время(в секундах)").queue();
         }
+    }
 }

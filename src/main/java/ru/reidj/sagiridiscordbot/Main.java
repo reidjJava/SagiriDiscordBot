@@ -27,14 +27,12 @@ public class Main {
                 new MuteCommand(),
                 new WarnCommand(),
                 new ThreatenCommand(),
-                new HighfiveCommand(),
+                new HighFiveCommand(),
                 new AngryCommand(),
                 new CryCommand(),
                 new DidderCommand(),
                 new FacePawnCommand(),
                 new GoodbyeCommand(),
-                new HelloCommand(),
-                new HighfiveCommand(),
                 new HelloCommand(),
                 new HugCommand(),
                 new KissCommand(),
@@ -43,6 +41,7 @@ public class Main {
                 new SleepCommand(),
                 new SorryCommand(),
                 new WowCommand(),
+                new HitCommand(),
                 new AvatarCommand(),
                 new PollCommand()
         ).forEach(jda::addEventListener);

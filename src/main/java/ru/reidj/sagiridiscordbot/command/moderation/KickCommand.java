@@ -12,11 +12,13 @@ public class KickCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         val message = e.getMessage();
+        val channel = e.getChannel();
 
         if (message.getContentRaw().startsWith("!kick")) {
+            channel.deleteMessageById(message.getId()).queue();
             if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.KICK_MEMBERS)) {
                 for (Member member : e.getMessage().getMentionedMembers()) {
-                    e.getChannel().sendMessage("Вы успешно выгнали " + member.getAsMention() + " с сервера").queue();
+                    channel.sendMessage(member.getAsMention() + " был(а) выгнан(а) с сервера!").queue();
                     member.kick().queue();
                 }
             }

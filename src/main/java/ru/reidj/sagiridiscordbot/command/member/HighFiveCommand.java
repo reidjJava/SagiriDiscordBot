@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.File;
 
-public class HighfiveCommand extends ListenerAdapter {
+public class HighFiveCommand extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
