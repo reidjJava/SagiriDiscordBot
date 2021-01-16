@@ -17,8 +17,8 @@ public class GuildMemberLeave extends ListenerAdapter {
 
         leaveMessage.setColor(Color.PINK);
         leaveMessage.setTitle("Один из участников покинул сервер :(");
-        leaveMessage.setDescription(user.getAsMention() + ", надеемся тебе у нас понравилось");
-        leaveMessage.setImage("https://i.gifer.com/7bkF.gif");
+        leaveMessage.setDescription(user.getAsMention() + ", надеемся тебе у нас понравилось!");
+        leaveMessage.setImage("https://i.gifer.com/AIUJ.gif");
 
         if (!user.isBot())
             guild.getCategories()
