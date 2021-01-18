@@ -3,6 +3,7 @@ package ru.reidj.sagiridiscordbot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import ru.reidj.sagiridiscordbot.command.game.RockPaperScissors;
 import ru.reidj.sagiridiscordbot.command.member.*;
 import ru.reidj.sagiridiscordbot.command.moderation.BanICommand;
 import ru.reidj.sagiridiscordbot.command.moderation.KickICommand;
@@ -45,7 +46,8 @@ public class Main {
                 new HitICommand(),
                 new AvatarICommand(),
                 new PollICommand(),
-                new LvlSystem()
+                new LvlSystem(),
+                new RockPaperScissors()
         ).forEach(jda::addEventListener);
     }
 }

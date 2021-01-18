@@ -13,7 +13,6 @@ public enum RoleLevels {
     FIFTY_FIFTH(55, "800726571932581888")
     ;
 
-
     private final int level;
     private final String role;
 }
