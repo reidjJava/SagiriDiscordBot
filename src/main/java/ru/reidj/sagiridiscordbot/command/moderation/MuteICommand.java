@@ -1,6 +1,7 @@
 package ru.reidj.sagiridiscordbot.command.moderation;
 
 import lombok.val;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -36,7 +37,7 @@ public class MuteICommand extends ListenerAdapter implements ICommand {
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     val role = e.getGuild().getRoleById("800029682572984320");
 
-                    channel.sendMessage("Участнику(це) " + member.getAsMention() + " было запрещено писать в чат на " + messages[2] + " секунд!").queue();
+                    channel.sendMessage("Участнику(-це) " + member.getAsMention() + " было запрещено писать в чат на " + messages[2] + " секунд!").queue();
                     guild.addRoleToMember(member, Objects.requireNonNull(e.getGuild().getRoleById("800029682572984320"))).complete();
 
                     new Timer().schedule(

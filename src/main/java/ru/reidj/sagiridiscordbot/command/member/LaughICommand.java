@@ -26,7 +26,7 @@ public class LaughICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            channel.sendMessage(e.getAuthor().getAsMention() + " посмеялся(ась)").queue();
+            channel.sendMessage(e.getAuthor().getAsMention() + " посмеялся(-ась)").queue();
             channel.sendFile(getPath()).queue();
         }
     }

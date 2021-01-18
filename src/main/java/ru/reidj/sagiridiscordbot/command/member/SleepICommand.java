@@ -26,7 +26,7 @@ public class SleepICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            channel.sendMessage(e.getAuthor().getAsMention() + " захотел(а) спать").queue();
+            channel.sendMessage(e.getAuthor().getAsMention() + " захотел(-а) спать").queue();
             channel.sendFile(getPath()).queue();
         }
     }

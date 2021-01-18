@@ -28,7 +28,7 @@ public class HelloICommand extends ListenerAdapter implements ICommand {
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
             for (Member member : e.getMessage().getMentionedMembers()) {
-                channel.sendMessage(e.getAuthor().getAsMention() + " поздоровался(ась) с " + member.getAsMention()).queue();
+                channel.sendMessage(e.getAuthor().getAsMention() + " поздоровался(-ась) с " + member.getAsMention()).queue();
                 channel.sendFile(getPath()).queue();
             }
         }

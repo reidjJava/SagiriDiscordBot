@@ -33,7 +33,7 @@ public class BanICommand extends ListenerAdapter implements ICommand {
                 if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.BAN_MEMBERS)) {
                     channel.deleteMessageById(message.getId()).queue();
                     for (Member member : e.getMessage().getMentionedMembers()) {
-                        channel.sendMessage(member.getAsMention() + " был(а) заблокирован(а) на " + messages[2] + " день(ней)!").queue();
+                        channel.sendMessage(member.getAsMention() + " был(-а) заблокирован(-а) на " + messages[2] + " день(-ней)!").queue();
                         member.ban(Integer.parseInt(messages[2])).complete();
                     }
                 }

@@ -28,7 +28,7 @@ public class HighFiveICommand extends ListenerAdapter implements ICommand {
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
             for (Member member : e.getMessage().getMentionedMembers()) {
-                channel.sendMessage(e.getAuthor().getAsMention() + " дал(а) пять " + member.getAsMention()).queue();
+                channel.sendMessage(e.getAuthor().getAsMention() + " дал(-а) пять " + member.getAsMention()).queue();
                 channel.sendFile(getPath()).queue();
             }
         }

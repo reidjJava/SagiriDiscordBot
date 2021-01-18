@@ -26,7 +26,7 @@ public class WowICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            channel.sendMessage(e.getAuthor().getAsMention() + " удивился(ась)").queue();
+            channel.sendMessage(e.getAuthor().getAsMention() + " удивился(-ась)").queue();
             channel.sendFile(getPath()).queue();
         }
     }

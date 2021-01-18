@@ -38,7 +38,7 @@ public class WarnICommand extends ListenerAdapter implements ICommand {
                         val warnMessage = new EmbedBuilder();
 
                         warnMessage.setColor(Color.red);
-                        warnMessage.setTitle("Участник(ца) " + member.getAsMention().replace(member.getAsMention(), member.getEffectiveName()) + " получил(а) предупреждение!");
+                        warnMessage.setTitle("Участник(-ца) " + member.getAsMention().replace(member.getAsMention(), member.getEffectiveName()) + " получил(-а) предупреждение!");
                         warnMessage.setDescription("Причина: " + messages[2] + "\n");
 
                         channel.sendMessage(warnMessage.build()).queue();
