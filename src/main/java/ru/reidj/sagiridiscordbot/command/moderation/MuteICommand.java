@@ -4,12 +4,25 @@ import lombok.val;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import ru.reidj.sagiridiscordbot.command.ICommand;
 
+import java.io.File;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MuteCommand extends ListenerAdapter {
+public class MuteICommand extends ListenerAdapter implements ICommand {
+
+    @Override
+    public File getPath() {
+        return null;
+    }
+
+    @Override
+    public String getCommand() {
+        return "!mute";
+    }
+
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         val message = e.getMessage();
@@ -18,7 +31,7 @@ public class MuteCommand extends ListenerAdapter {
         String[] messages = message.getContentRaw().split(" ");
 
         try {
-            if (messages[0].equalsIgnoreCase("!mute")) {
+            if (messages[0].equalsIgnoreCase(getCommand())) {
                 channel.deleteMessageById(message.getId()).queue();
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     val role = e.getGuild().getRoleById("800029682572984320");

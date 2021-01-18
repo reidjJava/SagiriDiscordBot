@@ -6,11 +6,23 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import ru.reidj.sagiridiscordbot.command.ICommand;
 
 import java.awt.*;
+import java.io.File;
 import java.util.Objects;
 
-public class WarnCommand extends ListenerAdapter {
+public class WarnICommand extends ListenerAdapter implements ICommand {
+
+    @Override
+    public File getPath() {
+        return null;
+    }
+
+    @Override
+    public String getCommand() {
+        return "!warn";
+    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
@@ -19,7 +31,7 @@ public class WarnCommand extends ListenerAdapter {
         String[] messages = message.getContentRaw().split(" ");
 
         try {
-            if (messages[0].equalsIgnoreCase("!warn")) {
+            if (messages[0].equalsIgnoreCase(getCommand())) {
                 channel.deleteMessageById(message.getId()).queue();
                 if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_CHANNEL))
                     for (Member member : e.getMessage().getMentionedMembers()) {

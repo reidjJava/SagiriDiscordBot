@@ -4,12 +4,13 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import ru.reidj.sagiridiscordbot.command.member.*;
-import ru.reidj.sagiridiscordbot.command.moderation.BanCommand;
-import ru.reidj.sagiridiscordbot.command.moderation.KickCommand;
-import ru.reidj.sagiridiscordbot.command.moderation.MuteCommand;
-import ru.reidj.sagiridiscordbot.command.moderation.WarnCommand;
+import ru.reidj.sagiridiscordbot.command.moderation.BanICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.KickICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.MuteICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.WarnICommand;
 import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
 import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
+import ru.reidj.sagiridiscordbot.level.LvlSystem;
 
 import java.util.Arrays;
 
@@ -22,28 +23,29 @@ public class Main {
         Arrays.asList(
                 new GuildMemberJoin(),
                 new GuildMemberLeave(),
-                new BanCommand(),
-                new KickCommand(),
-                new MuteCommand(),
-                new WarnCommand(),
-                new ThreatenCommand(),
-                new HighFiveCommand(),
-                new AngryCommand(),
-                new CryCommand(),
-                new DidderCommand(),
-                new FacePawnCommand(),
-                new GoodbyeCommand(),
-                new HelloCommand(),
-                new HugCommand(),
-                new KissCommand(),
-                new LaughCommand(),
-                new PatCommand(),
-                new SleepCommand(),
-                new SorryCommand(),
-                new WowCommand(),
-                new HitCommand(),
-                new AvatarCommand(),
-                new PollCommand()
+                new BanICommand(),
+                new KickICommand(),
+                new MuteICommand(),
+                new WarnICommand(),
+                new ThreatenICommand(),
+                new HighFiveICommand(),
+                new AngryICommand(),
+                new CryICommand(),
+                new DidderICommand(),
+                new FacePawnICommand(),
+                new GoodbyeICommand(),
+                new HelloICommand(),
+                new HugICommand(),
+                new KissICommand(),
+                new LaughICommand(),
+                new PatICommand(),
+                new SleepICommand(),
+                new SorryICommand(),
+                new WowICommand(),
+                new HitICommand(),
+                new AvatarICommand(),
+                new PollICommand(),
+                new LvlSystem()
         ).forEach(jda::addEventListener);
     }
 }
