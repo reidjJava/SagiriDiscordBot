@@ -3,10 +3,7 @@ package ru.reidj.sagiridiscordbot.command;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.command.member.*;
-import ru.reidj.sagiridiscordbot.command.moderation.BanICommand;
-import ru.reidj.sagiridiscordbot.command.moderation.KickICommand;
-import ru.reidj.sagiridiscordbot.command.moderation.MuteICommand;
-import ru.reidj.sagiridiscordbot.command.moderation.WarnICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.*;
 
 import java.util.HashMap;
 import java.util.Map;

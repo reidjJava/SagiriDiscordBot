@@ -7,6 +7,7 @@ import ru.reidj.sagiridiscordbot.Main;
 import ru.reidj.sagiridiscordbot.command.ICommand;
 
 import java.io.File;
+import java.util.Objects;
 
 public class DailyCommand extends ListenerAdapter implements ICommand {
 
@@ -30,12 +31,12 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
         val message = e.getMessage();
         val channel = e.getChannel();
         val member = e.getMember();
-        val userList = Main.getInstance().getUserStatistic().get(member);
+        val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
             userList.setMoney(userList.getMoney() + 500);
-            channel.sendMessage("Вы получили 500 монет").queue();
+            channel.sendMessage(member.getAsMention() + " , вы получили 500 кристаллов").queue();
         }
     }
 }

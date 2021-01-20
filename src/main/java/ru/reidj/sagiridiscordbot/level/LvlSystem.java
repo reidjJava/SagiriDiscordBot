@@ -1,9 +1,13 @@
 package ru.reidj.sagiridiscordbot.level;
 
 import lombok.val;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.Main;
+
+import java.awt.*;
+import java.util.Objects;
 
 public class LvlSystem extends ListenerAdapter {
 
@@ -12,9 +16,9 @@ public class LvlSystem extends ListenerAdapter {
         val guild = e.getGuild();
         val member = e.getMember();
         val author = e.getAuthor();
-        val userStatistic = Main.getInstance().getUserStatistic().get(member);
+        val userStatistic = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
-        /*if (!author.isBot()) {
+        if (!author.isBot()) {
             userStatistic.setNumberOfMessage(userStatistic.getNumberOfMessage() + 1);
 
             if (userStatistic.getNumberOfMessage() % 2 == 0 && !author.isBot()) {
@@ -37,6 +41,6 @@ public class LvlSystem extends ListenerAdapter {
                         .get(5)
                         .sendMessage(levelMessage.build()).queue();
             }
-        }*/
+        }
     }
 }
