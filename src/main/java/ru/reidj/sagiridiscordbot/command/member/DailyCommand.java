@@ -8,8 +8,11 @@ import ru.reidj.sagiridiscordbot.command.ICommand;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DailyCommand extends ListenerAdapter implements ICommand {
+    private boolean isCountDown = true;
 
     @Override
     public File getPath() {
@@ -33,10 +36,27 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
         val member = e.getMember();
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
-        if (message.getContentRaw().startsWith(getCommand())) {
-            channel.deleteMessageById(message.getId()).queue();
-            userList.setMoney(userList.getMoney() + 500);
-            channel.sendMessage(member.getAsMention() + " , вы получили 500 кристаллов").queue();
+
+        if (isCountDown) {
+            if (message.getContentRaw().startsWith(getCommand())) {
+                channel.deleteMessageById(message.getId()).queue();
+                userList.setMoney(userList.getMoney() + 500);
+                channel.sendMessage(member.getAsMention() + ", вы получили 500 кристаллов").queue();
+                isCountDown = false;
+            }
+        } else {
+            channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
+            return;
         }
+
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        channel.sendMessage(member.getAsMention() + ", снова может получить ежедневную награду!").queue();
+                        isCountDown = true;
+                    }
+                }, 24 * 3600000
+        );
     }
 }

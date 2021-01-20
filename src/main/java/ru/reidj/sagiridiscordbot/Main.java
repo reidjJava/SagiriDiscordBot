@@ -13,9 +13,9 @@ import ru.reidj.sagiridiscordbot.event.LoadStats;
 import ru.reidj.sagiridiscordbot.level.LvlSystem;
 import ru.reidj.sagiridiscordbot.user.User;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +33,6 @@ public class Main {
                 .setActivity(Activity.watching("на тебя"))
                 .build();
 
-        jda.addEventListener(new CommandManager());
-
         Arrays.asList(
                 new GuildMemberJoin(),
                 new GuildMemberLeave(),
@@ -42,27 +40,28 @@ public class Main {
                 new LoadStats()
         ).forEach(jda::addEventListener);
 
+        jda.addEventListener(new CommandManager());
+
         // Создаю файл и загружаю в него статистику
         while (true) {
             try {
                 Main.getInstance().file();
-                System.out.println("Статистика загружена в файл");
+                System.out.println("Статистика успешно загружена в файл");
             } catch (Exception exception) {
                 System.out.println("Произошла ошибка при выгрузки статистики " + exception);
             }
-            Thread.sleep(60000);
+            Thread.sleep(20000);
         }
     }
 
     public void file() throws IOException {
-        val file = new File("C:\\Users\\Рейдж\\Desktop\\UserStats.txt");
-        val writer = new FileWriter(file, true);
+        val path = Paths.get("C:\\Users\\Рейдж\\Desktop\\UserStats.txt");
 
         for (User value : Main.getInstance().getUserStatistic().values()) {
-            for (String name : Main.getInstance().getUserStatistic().keySet())
-                writer.write(name + " " + value.getLevel() + " " + value.getNumberOfMessage() + " " + value.getMoney() + "\n");
+            for (String name : Main.getInstance().getUserStatistic().keySet()) {
+                String context = name + " " + value.getLevel() + " " + value.getMoney() + " " + value.getNumberOfMessage() + "\n";
+                Files.write(path, context.getBytes());
+            }
         }
-        writer.flush();
-        writer.close();
     }
 }
