@@ -1,6 +1,7 @@
 package ru.reidj.sagiridiscordbot.command.moderation;
 
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.UpdateOptions;
 import lombok.val;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -19,10 +20,15 @@ public class StopCommand extends ListenerAdapter {
         val member = e.getMember();
 
         if (message.getContentRaw().startsWith("!stop")) {
-            Main.getInstance().getCollection().updateOne(Filters.eq("member", Objects.requireNonNull(member).getEffectiveName()), new Document(
-                    "$set",
-                    new Document("level", Main.getInstance().getUserStatistic().get(member).getLevel())
-            ));
+            val document = new Document()
+                    .append("member", Objects.requireNonNull(member).getId())
+                    .append("level", Main.getInstance().getUserStatistic().get(member).getLevel())
+                    .append("messages", Main.getInstance().getUserStatistic().get(member).getNumberOfMessage())
+                    .append("money", Main.getInstance().getUserStatistic().get(member).getMoney());
+
+            Main.getInstance().getCollection()
+                    .updateOne(Filters.eq("member", Objects.requireNonNull(member).getId()),
+                            new Document("$set", document), new UpdateOptions().upsert(true));
             if (Objects.requireNonNull(member).hasPermission(Permission.ADMINISTRATOR)) {
                 channel.sendMessage("Ой, кажется я умираю :(").queue();
                 channel.deleteMessageById(message.getId()).queue();

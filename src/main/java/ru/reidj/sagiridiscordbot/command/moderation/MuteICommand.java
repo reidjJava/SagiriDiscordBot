@@ -1,7 +1,6 @@
 package ru.reidj.sagiridiscordbot.command.moderation;
 
 import lombok.val;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -22,6 +21,11 @@ public class MuteICommand extends ListenerAdapter implements ICommand {
     @Override
     public String getCommand() {
         return "!mute";
+    }
+
+    @Override
+    public String getHelp() {
+        return null;
     }
 
     @Override

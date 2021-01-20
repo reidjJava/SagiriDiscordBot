@@ -9,11 +9,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bson.Document;
-import ru.reidj.sagiridiscordbot.command.member.*;
-import ru.reidj.sagiridiscordbot.command.moderation.*;
+import ru.reidj.sagiridiscordbot.command.CommandManager;
 import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
 import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
-import ru.reidj.sagiridiscordbot.level.LvlSystem;
 import ru.reidj.sagiridiscordbot.user.User;
 
 import java.util.Arrays;
@@ -38,39 +36,15 @@ public class Main {
                 .build();
 
         MongoClient client = new MongoClient(new MongoClientURI(MONGO_URI));
-        Main.getInstance().collection =  client.getDatabase("data").getCollection("users");
+        Main.getInstance().collection = client.getDatabase("data").getCollection("users");
 
         getLogger().info("Connecting to database");
 
+        jda.addEventListener(new CommandManager());
 
         Arrays.asList(
                 new GuildMemberJoin(),
-                new GuildMemberLeave(),
-                new BanICommand(),
-                new KickICommand(),
-                new MuteICommand(),
-                new WarnICommand(),
-                new ThreatenICommand(),
-                new HighFiveICommand(),
-                new AngryICommand(),
-                new CryICommand(),
-                new DidderICommand(),
-                new FacePawnICommand(),
-                new GoodbyeICommand(),
-                new HelloICommand(),
-                new HugICommand(),
-                new KissICommand(),
-                new LaughICommand(),
-                new PatICommand(),
-                new SleepICommand(),
-                new SorryICommand(),
-                new WowICommand(),
-                new HitICommand(),
-                new AvatarICommand(),
-                new PollICommand(),
-                new LvlSystem(),
-                new DailyCommand(),
-                new StopCommand()
+                new GuildMemberLeave()
         ).forEach(jda::addEventListener);
     }
 }

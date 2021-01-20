@@ -22,6 +22,11 @@ public class PollICommand extends ListenerAdapter implements ICommand {
     }
 
     @Override
+    public String getHelp() {
+        return null;
+    }
+
+    @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         val channel = e.getChannel();
         val message = e.getMessage();
