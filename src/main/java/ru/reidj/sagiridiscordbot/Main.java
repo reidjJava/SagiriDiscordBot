@@ -16,6 +16,7 @@ import ru.reidj.sagiridiscordbot.user.User;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,11 +58,9 @@ public class Main {
     public void file() throws IOException {
         val path = Paths.get("C:\\Users\\Рейдж\\Desktop\\UserStats.txt");
 
-        for (User value : Main.getInstance().getUserStatistic().values()) {
-            for (String name : Main.getInstance().getUserStatistic().keySet()) {
-                String context = name + " " + value.getLevel() + " " + value.getMoney() + " " + value.getNumberOfMessage() + "\n";
-                Files.write(path, context.getBytes());
-            }
+        for (Map.Entry<String, User> entry : userStatistic.entrySet()) {
+            String context = entry.getKey() + " " + entry.getValue().getLevel() + " " + entry.getValue().getMoney() + " " + entry.getValue().getNumberOfMessage() + "\n";
+            Files.write(path, context.getBytes(), StandardOpenOption.APPEND);
         }
     }
 }
