@@ -11,7 +11,7 @@ import ru.reidj.sagiridiscordbot.command.ICommand;
 import java.io.File;
 import java.util.Objects;
 
-public class SetBalanceICommand extends ListenerAdapter implements ICommand {
+public class TakeBalanceICommand extends ListenerAdapter implements ICommand {
     @Override
     public File getPath() {
         return null;
@@ -19,7 +19,7 @@ public class SetBalanceICommand extends ListenerAdapter implements ICommand {
 
     @Override
     public String getCommand() {
-        return "!setbal";
+        return "!takebal";
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SetBalanceICommand extends ListenerAdapter implements ICommand {
             if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
                 for (Member member : e.getMessage().getMentionedMembers()) {
                     val userStatistic = Main.getInstance().getUserStatistic().get(member.getId());
-                    userStatistic.setMoney(userStatistic.getMoney() + Integer.parseInt(messages[2]));
+                    userStatistic.setMoney(userStatistic.getMoney() - Integer.parseInt(messages[2]));
                 }
             }
         }

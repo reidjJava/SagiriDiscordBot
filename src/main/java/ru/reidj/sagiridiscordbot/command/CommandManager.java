@@ -37,6 +37,7 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new WarnICommand());
         addCommand(new BalanceICommand());
         addCommand(new SetBalanceICommand());
+        addCommand(new TakeBalanceICommand());
     }
 
     private void addCommand(ICommand command) {
