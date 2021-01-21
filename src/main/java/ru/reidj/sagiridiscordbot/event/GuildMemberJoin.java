@@ -4,6 +4,7 @@ import lombok.val;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.bson.Document;
 import ru.reidj.sagiridiscordbot.Main;
 import ru.reidj.sagiridiscordbot.user.User;
 
@@ -18,6 +19,16 @@ public class GuildMemberJoin extends ListenerAdapter {
         val member = e.getMember();
 
         Main.getInstance().getUserStatistic().put(member.getId(), new User(1, 0, 0));
+
+        val userDoc = new Document("member", Objects.requireNonNull(member).getId());
+        val founded = Main.getInstance().getCollection().find(userDoc).first();
+
+        if (founded == null) {
+            userDoc.append("level", 1);
+            userDoc.append("money", 0);
+            userDoc.append("messages", 0);
+            Main.getInstance().getCollection().insertOne(userDoc);
+        }
 
         val joinMessage = new EmbedBuilder();
 
