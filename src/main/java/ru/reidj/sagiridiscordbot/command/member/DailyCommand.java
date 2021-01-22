@@ -34,18 +34,18 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
         val member = e.getMember();
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
-        // TODO Починить кулдаун на команду
         if (message.getContentRaw().startsWith(getCommand())) {
-            addCountDown(member.getId(), true);
-                if (isCountDown.containsKey(true)) {
-                    channel.deleteMessageById(message.getId()).queue();
-                    userList.setMoney(userList.getMoney() + 500);
-                    channel.sendMessage(member.getAsMention() + ", вы получили 500 кристаллов!").queue();
-                    addCountDown(member.getId(), false);
-                } else {
-                    channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
-                    return;
-                }
+            if (isCountDown.get(member.getId()) == null)
+                addCountDown(member.getId(), true);
+            else if (isCountDown.get(member.getId()) == Boolean.TRUE) {
+                channel.deleteMessageById(message.getId()).queue();
+                isCountDown.put(member.getId(), false);
+                userList.setMoney(userList.getMoney() + 500);
+                channel.sendMessage(member.getAsMention() + ", вы получили 500 кристаллов!").queue();
+            } else {
+                channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
+                return;
+            }
         }
 
         new Timer().schedule(
