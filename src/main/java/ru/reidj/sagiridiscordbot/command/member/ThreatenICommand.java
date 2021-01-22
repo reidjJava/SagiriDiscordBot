@@ -1,12 +1,12 @@
 package ru.reidj.sagiridiscordbot.command.member;
 
 import lombok.val;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.command.ICommand;
 
 import java.io.File;
+import java.util.Objects;
 
 public class ThreatenICommand extends ListenerAdapter implements ICommand {
 
@@ -32,8 +32,8 @@ public class ThreatenICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            for (Member member : e.getMessage().getMentionedMembers()) {
-                channel.sendMessage(e.getAuthor().getAsMention() + " пригрозил(-а) " + member.getAsMention()).queue();
+            for (val member : message.getMentionedMembers()) {
+                channel.sendMessage(Objects.requireNonNull(e.getMember()).getAsMention() + " пригрозил(-а) " + member.getAsMention()).queue();
                 channel.sendFile(getPath()).queue();
             }
         }

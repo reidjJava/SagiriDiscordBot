@@ -1,7 +1,6 @@
 package ru.reidj.sagiridiscordbot.command.member;
 
 import lombok.val;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.command.ICommand;
@@ -32,7 +31,7 @@ public class AvatarICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            for (Member member : e.getMessage().getMentionedMembers()) {
+            for (val member : message.getMentionedMembers()) {
                 channel.sendMessage("Аватарка " + member.getUser().getName() + "\n"  + member.getUser().getAvatarUrl()).queue();
             }
         }

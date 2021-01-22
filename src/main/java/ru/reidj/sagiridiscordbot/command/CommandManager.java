@@ -1,9 +1,13 @@
 package ru.reidj.sagiridiscordbot.command;
 
+import lombok.val;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.command.member.*;
-import ru.reidj.sagiridiscordbot.command.moderation.*;
+import ru.reidj.sagiridiscordbot.command.moderation.BanICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.KickICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.MuteICommand;
+import ru.reidj.sagiridiscordbot.command.moderation.WarnICommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,10 +40,9 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new MuteICommand());
         addCommand(new WarnICommand());
         addCommand(new BalanceICommand());
-        addCommand(new SendMessage());
         addCommand(new SetBalanceICommand());
         addCommand(new TakeBalanceICommand());
-        addCommand(new SaveCommand());
+        addCommand(new BuyICommand());
     }
 
     private void addCommand(ICommand command) {
@@ -49,7 +52,7 @@ public class CommandManager extends ListenerAdapter {
 
     public void onMessageReceived(MessageReceivedEvent e) {
         String[] message = e.getMessage().getContentRaw().split(" ");
-        String command = message[0].toLowerCase();
+        val command = message[0].toLowerCase();
 
         if (commandMap.containsKey(command))
             commandMap.get(command).onMessageReceived(e);

@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.command.ICommand;
 
 import java.io.File;
+import java.util.Objects;
 
 public class CryICommand extends ListenerAdapter implements ICommand {
 
@@ -31,7 +32,7 @@ public class CryICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            channel.sendMessage(e.getAuthor().getAsMention() + " расплакался(-ась)").queue();
+            channel.sendMessage(Objects.requireNonNull(e.getMember()).getAsMention() + " расплакался(-ась)").queue();
             channel.sendFile(getPath()).queue();
         }
     }

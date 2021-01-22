@@ -9,6 +9,8 @@ import ru.reidj.sagiridiscordbot.Main;
 import java.awt.*;
 import java.util.Objects;
 
+import static com.sun.javafx.binding.Logging.getLogger;
+
 public class LvlSystem extends ListenerAdapter {
 
     @Override
@@ -22,10 +24,10 @@ public class LvlSystem extends ListenerAdapter {
             if (!author.isBot()) {
                 userStatistic.setNumberOfMessage(userStatistic.getNumberOfMessage() + 1);
 
-                if (userStatistic.getNumberOfMessage() % 2 == 0 && !author.isBot()) {
+                if (userStatistic.getNumberOfMessage() % 2 == 0) {
                     userStatistic.setLevel(userStatistic.getLevel() + 1);
 
-                    for (RoleLevels roleLevels : RoleLevels.values())
+                    for (val roleLevels : RoleLevels.values())
                         if (userStatistic.getLevel() == roleLevels.getLevel())
                             guild.addRoleToMember(Objects.requireNonNull(member), Objects.requireNonNull(guild.getRoleById(roleLevels.getRole()))).complete();
 
@@ -43,6 +45,8 @@ public class LvlSystem extends ListenerAdapter {
                             .sendMessage(levelMessage.build()).queue();
                 }
             }
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException exception) {
+            getLogger().info("Произошла ошибка" + exception);
+        }
     }
 }

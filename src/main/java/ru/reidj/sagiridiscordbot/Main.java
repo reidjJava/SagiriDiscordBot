@@ -13,6 +13,7 @@ import org.bson.Document;
 import ru.reidj.sagiridiscordbot.command.CommandManager;
 import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
 import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
+import ru.reidj.sagiridiscordbot.event.MessageReaction;
 import ru.reidj.sagiridiscordbot.event.SaveStats;
 import ru.reidj.sagiridiscordbot.level.LvlSystem;
 import ru.reidj.sagiridiscordbot.user.User;
@@ -34,14 +35,15 @@ public class Main {
     public static void main(String[] args) throws Exception {
         JDA jda = JDABuilder.createDefault("Nzk5NzI5MjE2NTMwNjc3ODEx.YAHz3w.ZaES44Oy064nNdCS_DwZZMT3rpg")
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
-                .setActivity(Activity.watching("на тебя"))
+                .setActivity(Activity.playing("в IntelliJ IDEA"))
                 .build();
 
         Arrays.asList(
                 new GuildMemberJoin(),
                 new GuildMemberLeave(),
                 new LvlSystem(),
-                new SaveStats()
+                new SaveStats(),
+                new MessageReaction()
         ).forEach(jda::addEventListener);
 
         jda.addEventListener(new CommandManager());
@@ -49,7 +51,7 @@ public class Main {
         val client = new MongoClient(new MongoClientURI(MONGO_URI));
         Main.getInstance().collection = client.getDatabase("data").getCollection("users");
 
-        // Загрузка из бд
+        // Загружаю стаистику из бд
         for (Document document : Main.getInstance().getCollection().find()) {
             val id = document.getString("member");
             val money = document.getInteger("money");

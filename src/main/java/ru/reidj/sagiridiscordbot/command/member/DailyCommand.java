@@ -7,12 +7,10 @@ import ru.reidj.sagiridiscordbot.Main;
 import ru.reidj.sagiridiscordbot.command.ICommand;
 
 import java.io.File;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class DailyCommand extends ListenerAdapter implements ICommand {
-    private boolean isCountDown = true;
+    private final Map<String, Boolean> isCountDown = new HashMap<>();
 
     @Override
     public File getPath() {
@@ -36,17 +34,18 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
         val member = e.getMember();
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
-
-        if (isCountDown) {
-            if (message.getContentRaw().startsWith(getCommand())) {
-                channel.deleteMessageById(message.getId()).queue();
-                userList.setMoney(userList.getMoney() + 500);
-                channel.sendMessage(member.getAsMention() + ", вы получили 500 кристаллов").queue();
-                isCountDown = false;
-            }
-        } else {
-            channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
-            return;
+        // TODO Починить кулдаун на команду
+        if (message.getContentRaw().startsWith(getCommand())) {
+            addCountDown(member.getId(), true);
+                if (isCountDown.containsKey(true)) {
+                    channel.deleteMessageById(message.getId()).queue();
+                    userList.setMoney(userList.getMoney() + 500);
+                    channel.sendMessage(member.getAsMention() + ", вы получили 500 кристаллов!").queue();
+                    addCountDown(member.getId(), false);
+                } else {
+                    channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
+                    return;
+                }
         }
 
         new Timer().schedule(
@@ -54,9 +53,13 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
                     @Override
                     public void run() {
                         channel.sendMessage(member.getAsMention() + ", снова может получить ежедневную награду!").queue();
-                        isCountDown = true;
+                        addCountDown(member.getId(), true);
                     }
                 }, 24 * 3600000
         );
+    }
+
+    private void addCountDown(String member, boolean isCountDown) {
+        this.isCountDown.put(member, isCountDown);
     }
 }

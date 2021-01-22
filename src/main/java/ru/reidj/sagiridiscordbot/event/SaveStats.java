@@ -13,15 +13,17 @@ import java.util.Objects;
 public class SaveStats extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent e) {
         val member = e.getMember();
+        val userStatistic = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
         if (e.getAuthor().isBot())
             return;
 
+        // Сохраняю статистику в бд
         val document = new Document()
                 .append("member", Objects.requireNonNull(member).getId())
-                .append("level", Main.getInstance().getUserStatistic().get(member.getId()).getLevel())
-                .append("messages", Main.getInstance().getUserStatistic().get(member.getId()).getNumberOfMessage())
-                .append("money", Main.getInstance().getUserStatistic().get(member.getId()).getMoney());
+                .append("level", userStatistic.getLevel())
+                .append("messages", userStatistic.getNumberOfMessage())
+                .append("money", userStatistic.getMoney());
 
         Main.getInstance().getCollection()
                 .updateOne(Filters.eq("member", Objects.requireNonNull(member).getId()),
