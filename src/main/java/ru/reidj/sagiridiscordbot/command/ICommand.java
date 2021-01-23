@@ -10,7 +10,5 @@ public interface ICommand {
 
     String getCommand();
 
-    String getHelp();
-
     void onMessageReceived(MessageReceivedEvent e);
 }

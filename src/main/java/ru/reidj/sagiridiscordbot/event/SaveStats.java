@@ -19,14 +19,16 @@ public class SaveStats extends ListenerAdapter {
             return;
 
         // Сохраняю статистику в бд
-        val document = new Document()
-                .append("member", Objects.requireNonNull(member).getId())
-                .append("level", userStatistic.getLevel())
-                .append("messages", userStatistic.getNumberOfMessage())
-                .append("money", userStatistic.getMoney());
+        try {
+            val document = new Document()
+                    .append("member", Objects.requireNonNull(member).getId())
+                    .append("level", userStatistic.getLevel())
+                    .append("messages", userStatistic.getNumberOfMessage())
+                    .append("money", userStatistic.getMoney());
 
-        Main.getInstance().getCollection()
-                .updateOne(Filters.eq("member", Objects.requireNonNull(member).getId()),
-                        new Document("$set", document), new UpdateOptions().upsert(true));
+            Main.getInstance().getCollection()
+                    .updateOne(Filters.eq("member", Objects.requireNonNull(member).getId()),
+                            new Document("$set", document), new UpdateOptions().upsert(true));
+        } catch (NullPointerException ignored) {}
     }
 }

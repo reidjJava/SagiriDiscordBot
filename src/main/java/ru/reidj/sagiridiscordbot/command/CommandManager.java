@@ -16,25 +16,9 @@ public class CommandManager extends ListenerAdapter {
     private final Map<String, ICommand> commandMap = new HashMap<>();
 
     public CommandManager() {
-        addCommand(new AngryICommand());
         addCommand(new AvatarICommand());
-        addCommand(new CryICommand());
-        addCommand(new DailyCommand());
-        addCommand(new DidderICommand());
-        addCommand(new FacePawnICommand());
-        addCommand(new GoodbyeICommand());
-        addCommand(new HelloICommand());
-        addCommand(new HighFiveICommand());
-        addCommand(new HighFiveICommand());
-        addCommand(new HugICommand());
-        addCommand(new KissICommand());
-        addCommand(new LaughICommand());
-        addCommand(new PatICommand());
+        addCommand(new DailyICommand());
         addCommand(new PollICommand());
-        addCommand(new SleepICommand());
-        addCommand(new SorryICommand());
-        addCommand(new ThreatenICommand());
-        addCommand(new WowICommand());
         addCommand(new BanICommand());
         addCommand(new KickICommand());
         addCommand(new MuteICommand());
@@ -43,7 +27,7 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new SetBalanceICommand());
         addCommand(new TakeBalanceICommand());
         addCommand(new BuyICommand());
-        addCommand(new ZxcCommand());
+        addCommand(new ZxcICommand());
     }
 
     private void addCommand(ICommand command) {

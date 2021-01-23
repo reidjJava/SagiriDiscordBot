@@ -9,7 +9,7 @@ import ru.reidj.sagiridiscordbot.command.ICommand;
 import java.io.File;
 import java.util.*;
 
-public class DailyCommand extends ListenerAdapter implements ICommand {
+public class DailyICommand extends ListenerAdapter implements ICommand {
     private final Map<String, Boolean> isCountDown = new HashMap<>();
 
     @Override
@@ -20,11 +20,6 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
     @Override
     public String getCommand() {
         return "!daily";
-    }
-
-    @Override
-    public String getHelp() {
-        return null;
     }
 
     @Override

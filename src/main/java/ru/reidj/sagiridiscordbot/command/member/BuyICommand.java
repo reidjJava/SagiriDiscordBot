@@ -21,11 +21,6 @@ public class BuyICommand extends ListenerAdapter implements ICommand {
         return "!buy";
     }
 
-    @Override
-    public String getHelp() {
-        return null;
-    }
-
     public void onMessageReceived(MessageReceivedEvent e) {
         val message = e.getMessage();
         val member = e.getMember();

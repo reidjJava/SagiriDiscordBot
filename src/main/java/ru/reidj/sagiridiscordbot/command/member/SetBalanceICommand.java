@@ -22,11 +22,6 @@ public class SetBalanceICommand extends ListenerAdapter implements ICommand {
     }
 
     @Override
-    public String getHelp() {
-        return null;
-    }
-
-    @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         val message = e.getMessage();
         val channel = e.getChannel();
