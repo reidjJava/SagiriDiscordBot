@@ -24,7 +24,7 @@ public class LvlSystem extends ListenerAdapter {
             if (!author.isBot()) {
                 userStatistic.setNumberOfMessage(userStatistic.getNumberOfMessage() + 1);
 
-                if (userStatistic.getNumberOfMessage() % 2 == 0) {
+                if (userStatistic.getNumberOfMessage() % 60 == 0) {
                     userStatistic.setLevel(userStatistic.getLevel() + 1);
 
                     for (val roleLevels : RoleLevels.values())

@@ -1,11 +1,11 @@
-package ru.reidj.sagiridiscordbot.command.member.role;
+package ru.reidj.sagiridiscordbot.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Roles {
+public enum RoleShop {
     BROKEN_HEART("800646936154996776", "10", 10000),
     YOURS_DREAM("801440219705901057", "9", 15000),
     SOUL_IS_DEAD("800434858248896544", "8", 20000),

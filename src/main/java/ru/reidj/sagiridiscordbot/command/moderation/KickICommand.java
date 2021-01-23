@@ -34,7 +34,7 @@ public class KickICommand extends ListenerAdapter implements ICommand {
             channel.deleteMessageById(message.getId()).queue();
             if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.KICK_MEMBERS)) {
                 for (val member : message.getMentionedMembers()) {
-                    channel.sendMessage(member.getAsMention() + " был(а) выгнан(-а) с сервера!").queue();
+                    channel.sendMessage(member.getAsMention() + " был(-а) выгнан(-а) с сервера!").queue();
                     member.kick().queue();
                 }
             }

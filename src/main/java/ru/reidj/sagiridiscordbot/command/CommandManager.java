@@ -43,6 +43,7 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new SetBalanceICommand());
         addCommand(new TakeBalanceICommand());
         addCommand(new BuyICommand());
+        addCommand(new ZxcCommand());
     }
 
     private void addCommand(ICommand command) {

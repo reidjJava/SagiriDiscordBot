@@ -9,17 +9,17 @@ import ru.reidj.sagiridiscordbot.command.ICommand;
 import java.io.File;
 import java.util.*;
 
-public class DailyCommand extends ListenerAdapter implements ICommand {
+public class ZxcCommand extends ListenerAdapter implements ICommand {
     private final Map<String, Boolean> isCountDown = new HashMap<>();
 
     @Override
     public File getPath() {
-        return null;
+        return new File("src/main/resources/zxc.gif");
     }
 
     @Override
     public String getCommand() {
-        return "!daily";
+        return "!zxc";
     }
 
     @Override
@@ -33,6 +33,7 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
         val channel = e.getChannel();
         val member = e.getMember();
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
+        val money = Math.random() * 1500;
 
         if (message.getContentRaw().startsWith(getCommand())) {
             if (isCountDown.get(member.getId()) == null)
@@ -40,23 +41,24 @@ public class DailyCommand extends ListenerAdapter implements ICommand {
             else if (isCountDown.get(member.getId()) == Boolean.TRUE) {
                 channel.deleteMessageById(message.getId()).queue();
                 addCountDown(member.getId(), false);
-                userList.setMoney(userList.getMoney() + 500);
-                channel.sendMessage(member.getAsMention() + ", вы получили 500 кристаллов!").queue();
+                userList.setMoney((int) (userList.getMoney() + money));
+                channel.sendMessage(member.getAsMention() + ", вы сломали палец. \n+" + (int) money + " кристаллов").queue();
+                channel.sendFile(getPath()).queue();
             } else {
-                channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
+                channel.sendMessage(member.getAsMention() + ", ещё рано для получения награды!").queue();
                 return;
             }
-        }
 
-        new Timer().schedule(
-                new TimerTask() {
-                    @Override
-                    public void run() {
-                        channel.sendMessage(member.getAsMention() + ", снова может получить ежедневную награду!").queue();
-                        addCountDown(member.getId(), true);
-                    }
-                }, 24 * 3600000
-        );
+            new Timer().schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            channel.sendMessage(member.getAsMention() + ", снова может получить награду!").queue();
+                            addCountDown(member.getId(), true);
+                        }
+                    }, 4 * 3600000
+            );
+        }
     }
 
     private void addCountDown(String member, boolean isCountDown) {

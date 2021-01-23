@@ -5,7 +5,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import lombok.Getter;
 import lombok.val;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -33,9 +32,9 @@ public class Main {
     private static final String MONGO_URI = "mongodb://root:azxaewef345t@cluster0-shard-00-00.0h5nu.mongodb.net:27017,cluster0-shard-00-01.0h5nu.mongodb.net:27017,cluster0-shard-00-02.0h5nu.mongodb.net:27017/test?replicaSet=atlas-me5rlq-shard-0&ssl=true&authSource=admin";
 
     public static void main(String[] args) throws Exception {
-        JDA jda = JDABuilder.createDefault("Nzk5NzI5MjE2NTMwNjc3ODEx.YAHz3w.ZaES44Oy064nNdCS_DwZZMT3rpg")
+        val jda = JDABuilder.createDefault("Nzk5NzI5MjE2NTMwNjc3ODEx.YAHz3w.ZaES44Oy064nNdCS_DwZZMT3rpg")
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
-                .setActivity(Activity.playing("в IntelliJ IDEA"))
+                .setActivity(Activity.playing("IntelliJ IDEA"))
                 .build();
 
         Arrays.asList(
@@ -52,7 +51,7 @@ public class Main {
         Main.getInstance().collection = client.getDatabase("data").getCollection("users");
 
         // Загружаю стаистику из бд
-        for (Document document : Main.getInstance().getCollection().find()) {
+        for (val document : Main.getInstance().getCollection().find()) {
             val id = document.getString("member");
             val money = document.getInteger("money");
             val level = document.getInteger("level");
