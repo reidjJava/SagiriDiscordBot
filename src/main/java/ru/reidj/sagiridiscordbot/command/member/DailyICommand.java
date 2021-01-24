@@ -17,10 +17,11 @@ public class DailyICommand implements ICommand {
         val member = e.getMember();
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
+        if (isCountDown.get(member.getId()) == null)
+            addCountDown(member.getId(), true);
+
         if (message.getContentRaw().startsWith("!daily")) {
-            if (isCountDown.get(member.getId()) == null)
-                addCountDown(member.getId(), true);
-            else if (isCountDown.get(member.getId()) == Boolean.TRUE) {
+            if (isCountDown.get(member.getId()) == Boolean.TRUE) {
                 channel.deleteMessageById(message.getId()).queue();
                 addCountDown(member.getId(), false);
                 userList.setMoney(userList.getMoney() + 500);
@@ -29,17 +30,17 @@ public class DailyICommand implements ICommand {
                 channel.sendMessage(member.getAsMention() + ", ещё рано для получения ежедневной награды!").queue();
                 return;
             }
-        }
 
-        new Timer().schedule(
-                new TimerTask() {
-                    @Override
-                    public void run() {
-                        channel.sendMessage(member.getAsMention() + ", снова может получить ежедневную награду!").queue();
-                        addCountDown(member.getId(), true);
-                    }
-                }, 24 * 3600000
-        );
+            new Timer().schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            channel.sendMessage(member.getAsMention() + ", снова может получить ежедневную награду!").queue();
+                            addCountDown(member.getId(), true);
+                        }
+                    }, 24 * 3600000
+            );
+        }
     }
 
     private void addCountDown(String member, boolean isCountDown) {

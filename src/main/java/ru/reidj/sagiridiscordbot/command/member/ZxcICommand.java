@@ -19,10 +19,11 @@ public class ZxcICommand implements ICommand {
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
         val money = Math.random() * 1500;
 
+        if (isCountDown.get(member.getId()) == null)
+            addCountDown(member.getId(), true);
+
         if (message.getContentRaw().startsWith("!zxc")) {
-            if (isCountDown.get(member.getId()) == null)
-                addCountDown(member.getId(), true);
-            else if (isCountDown.get(member.getId()) == Boolean.TRUE) {
+            if (isCountDown.get(member.getId()) == Boolean.TRUE) {
                 channel.deleteMessageById(message.getId()).queue();
                 addCountDown(member.getId(), false);
                 userList.setMoney((int) (userList.getMoney() + money));
