@@ -26,9 +26,8 @@ public class AvatarICommand extends ListenerAdapter implements ICommand {
 
         if (message.getContentRaw().startsWith(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
-            for (val member : message.getMentionedMembers()) {
-                channel.sendMessage("Аватарка " + member.getUser().getName() + "\n"  + member.getUser().getAvatarUrl()).queue();
-            }
+            message.getMentionedMembers()
+                    .forEach(member -> channel.sendMessage("Аватарка " + member.getUser().getName() + "\n" + member.getUser().getAvatarUrl()).queue());
         }
     }
 }

@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bson.Document;
 import ru.reidj.sagiridiscordbot.command.CommandManager;
 import ru.reidj.sagiridiscordbot.command.member.CommandEmotions;
+import ru.reidj.sagiridiscordbot.command.moderation.ModerationCommand;
 import ru.reidj.sagiridiscordbot.event.GuildMemberJoin;
 import ru.reidj.sagiridiscordbot.event.GuildMemberLeave;
 import ru.reidj.sagiridiscordbot.event.MessageReaction;
@@ -38,7 +39,12 @@ public class Main {
                 .setActivity(Activity.playing("IntelliJ IDEA"))
                 .build();
 
+        // Регистрация модерских команд
         jda.addEventListener(new CommandManager());
+
+        jda.addEventListener(new ModerationCommand());
+
+        // Инициализация команд
         jda.addEventListener(new CommandEmotions());
 
         Arrays.asList(

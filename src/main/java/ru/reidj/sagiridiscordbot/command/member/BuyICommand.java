@@ -9,6 +9,7 @@ import ru.reidj.sagiridiscordbot.role.RoleShop;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class BuyICommand extends ListenerAdapter implements ICommand {
     @Override
@@ -30,15 +31,15 @@ public class BuyICommand extends ListenerAdapter implements ICommand {
         String[] messages = message.getContentRaw().split(" ");
 
         if (messages[0].equalsIgnoreCase(getCommand())) {
-            for (val roles : RoleShop.values()) {
-                if (messages[1].equalsIgnoreCase(roles.getId()))
-                    if (userStats.getMoney() >= roles.getMoney()) {
-                        guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById(roles.getRole()))).complete();
-                        userStats.setMoney(userStats.getMoney() - roles.getMoney());
+            Stream.of(RoleShop.values()).forEach(roleShop -> {
+                if (messages[1].equalsIgnoreCase(roleShop.getId()))
+                    if (userStats.getMoney() >= roleShop.getMoney()) {
+                        guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById(roleShop.getRole()))).complete();
+                        userStats.setMoney(userStats.getMoney() - roleShop.getMoney());
                         channel.sendMessage(member.getAsMention() + ", успешно приобрел роль").queue();
                     } else
                         channel.sendMessage("Ошибка! На вашем счёте недостаточно средств для совершения покупки").queue();
-            }
+            });
         }
     }
 }

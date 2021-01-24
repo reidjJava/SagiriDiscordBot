@@ -8,6 +8,7 @@ import ru.reidj.sagiridiscordbot.Main;
 
 import java.awt.*;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static com.sun.javafx.binding.Logging.getLogger;
 
@@ -27,9 +28,10 @@ public class LvlSystem extends ListenerAdapter {
                 if (userStatistic.getNumberOfMessage() % 60 == 0) {
                     userStatistic.setLevel(userStatistic.getLevel() + 1);
 
-                    for (val roleLevels : RoleLevels.values())
+                    Stream.of(RoleLevels.values()).forEach(roleLevels -> {
                         if (userStatistic.getLevel() == roleLevels.getLevel())
                             guild.addRoleToMember(Objects.requireNonNull(member), Objects.requireNonNull(guild.getRoleById(roleLevels.getRole()))).complete();
+                    });
 
                     val levelMessage = new EmbedBuilder();
 

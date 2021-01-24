@@ -30,10 +30,9 @@ public class TakeBalanceICommand extends ListenerAdapter implements ICommand {
         if (messages[0].equalsIgnoreCase(getCommand())) {
             channel.deleteMessageById(message.getId()).queue();
             if (Objects.requireNonNull(e.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
-                for (val member : message.getMentionedMembers()) {
-                    val userStatistic = Main.getInstance().getUserStatistic().get(member.getId());
-                    userStatistic.setMoney(userStatistic.getMoney() - Integer.parseInt(messages[2]));
-                }
+                message.getMentionedMembers().stream()
+                        .map(userStatistic -> Main.getInstance().getUserStatistic().get(userStatistic.getId()))
+                        .forEach(member -> member.setMoney(member.getMoney() - Integer.parseInt(messages[2])));
             }
         }
     }

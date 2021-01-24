@@ -21,10 +21,10 @@ public class CommandEmotions extends ListenerAdapter {
                     channel.sendMessage(Objects.requireNonNull(member).getAsMention() + commands.getMessage()).queue();
                     channel.sendFile(commands.getPath()).queue();
                 } else
-                    for (val mention : message.getMentionedMembers()) {
+                    message.getMentionedMembers().forEach(mention -> {
                         channel.sendMessage(Objects.requireNonNull(member).getAsMention() + commands.getMessage() + mention.getAsMention()).queue();
                         channel.sendFile(commands.getPath()).queue();
-                    }
+                    });
             }
         }
     }

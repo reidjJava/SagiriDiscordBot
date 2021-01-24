@@ -4,10 +4,6 @@ import lombok.val;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.reidj.sagiridiscordbot.command.member.*;
-import ru.reidj.sagiridiscordbot.command.moderation.BanICommand;
-import ru.reidj.sagiridiscordbot.command.moderation.KickICommand;
-import ru.reidj.sagiridiscordbot.command.moderation.MuteICommand;
-import ru.reidj.sagiridiscordbot.command.moderation.WarnICommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +15,6 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new AvatarICommand());
         addCommand(new DailyICommand());
         addCommand(new PollICommand());
-        addCommand(new BanICommand());
-        addCommand(new KickICommand());
-        addCommand(new MuteICommand());
-        addCommand(new WarnICommand());
         addCommand(new BalanceICommand());
         addCommand(new SetBalanceICommand());
         addCommand(new TakeBalanceICommand());
