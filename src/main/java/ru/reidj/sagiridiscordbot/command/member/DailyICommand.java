@@ -17,8 +17,7 @@ public class DailyICommand implements ICommand {
         val member = e.getMember();
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
 
-        if (isCountDown.get(member.getId()) == null)
-            addCountDown(member.getId(), true);
+        isCountDown.putIfAbsent(member.getId(), true);
 
         if (message.getContentRaw().startsWith("!daily")) {
             if (isCountDown.get(member.getId()) == Boolean.TRUE) {

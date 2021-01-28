@@ -14,7 +14,7 @@ public class AvatarICommand implements ICommand {
         if (message.getContentRaw().startsWith("!avatar")) {
             channel.deleteMessageById(message.getId()).queue();
             message.getMentionedMembers()
-                    .forEach(member -> channel.sendMessage("Аватарка " + member.getUser().getName() + "\n" + member.getUser().getAvatarUrl()).queue());
+                    .forEach(member -> channel.sendMessage("Аватарка " + member.getEffectiveName() + "\n" + member.getUser().getAvatarUrl()).queue());
         }
     }
 }

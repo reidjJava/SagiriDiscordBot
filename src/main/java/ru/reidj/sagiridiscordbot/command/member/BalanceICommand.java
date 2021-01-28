@@ -14,11 +14,13 @@ public class BalanceICommand implements ICommand {
         val message = e.getMessage();
         val channel = e.getChannel();
         val member = e.getMember();
+        val userStatistic = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
+        String[] messages = message.getContentRaw().split(" ");
 
-        if (message.getContentRaw().startsWith("!bal")) {
+        if (messages[0].equalsIgnoreCase("!bal")) {
             channel.deleteMessageById(message.getId()).queue();
             channel.sendMessage(Objects.requireNonNull(member).getAsMention() +
-                    ", ваш баланс " + Main.getInstance().getUserStatistic().get(member.getId()).getMoney() + " кристаллов").queue();
+                    ", ваш баланс " + userStatistic.getMoney() + " кристаллов").queue();
         }
     }
 }

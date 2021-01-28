@@ -19,8 +19,7 @@ public class ZxcICommand implements ICommand {
         val userList = Main.getInstance().getUserStatistic().get(Objects.requireNonNull(member).getId());
         val money = Math.random() * 1500;
 
-        if (isCountDown.get(member.getId()) == null)
-            addCountDown(member.getId(), true);
+        isCountDown.putIfAbsent(member.getId(), true);
 
         if (message.getContentRaw().startsWith("!zxc")) {
             if (isCountDown.get(member.getId()) == Boolean.TRUE) {
