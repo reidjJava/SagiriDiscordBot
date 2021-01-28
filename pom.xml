@@ -50,7 +50,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.func.bot42.Main</mainClass>
+                            <mainClass>ru.reidj.sagiridiscordbot.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -66,8 +66,17 @@
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.12.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -80,5 +89,4 @@
             <version>4.1.1_127</version>
         </dependency>
     </dependencies>
-
 </project>
