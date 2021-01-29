@@ -30,10 +30,12 @@ public class Main {
     private static final Main instance = new Main();
     @Getter
     private MongoCollection<Document> collection;
-    private static final String MONGO_URI = "mongodb://root:azxaewef345t@cluster0-shard-00-00.0h5nu.mongodb.net:27017,cluster0-shard-00-01.0h5nu.mongodb.net:27017,cluster0-shard-00-02.0h5nu.mongodb.net:27017/test?replicaSet=atlas-me5rlq-shard-0&ssl=true&authSource=admin";
+    // Строка подключения к бд
+    private static final String MONGO_URI = "";
 
     public static void main(String[] args) throws Exception {
-        val jda = JDABuilder.createDefault("Nzk5NzI5MjE2NTMwNjc3ODEx.YAHz3w.ZaES44Oy064nNdCS_DwZZMT3rpg")
+        // Здесь ваш токен
+        val jda = JDABuilder.createDefault("")
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .setActivity(Activity.playing("IntelliJ IDEA"))
                 .build();
